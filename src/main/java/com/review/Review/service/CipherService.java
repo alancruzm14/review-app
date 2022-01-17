@@ -25,9 +25,11 @@ import javax.crypto.NoSuchPaddingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mongodb.MongoCommandException;
 import com.review.Review.component.AuxComponent;
 import com.review.Review.dto.KeysCipherTO;
 import com.review.Review.model.KeysCipherDocument;
+import com.review.Review.repository.IChipherRepository;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -43,6 +45,9 @@ public class CipherService implements ICipherService {
 
 	@Autowired
 	private AuxComponent auxComponent;
+
+	@Autowired
+	private IChipherRepository iChipherRepository;
 
 	/**
 	 * Metodo para obtener la llave publica aleatoria
@@ -89,15 +94,13 @@ public class CipherService implements ICipherService {
 		keysCipherDocument.setPrivateKey(privateKey);
 		keysCipherDocument.setPublicKey(publicKey);
 		keysCipherDocument.setDateRegister(LocalDateTime.now());
-	}
+		try {
+			iChipherRepository.save(keysCipherDocument);
+			log.info("Se creo el: {}", keysCipherDocument.getDateRegister());
 
-	/**
-	 * Texto a descrifrar
-	 */
-	@Override
-	public String getDescipherText(String idKey, String cipherText) {
-		log.info("Metodo para descifrar");
-		return null;
+		} catch (MongoCommandException e) {
+			log.error("Problema en el guardado de los datos en mongo: {}", e);
+		}
 	}
 
 	/**
@@ -155,6 +158,60 @@ public class CipherService implements ICipherService {
 	private String decrypt(String data, String base64PrivateKey) throws IllegalBlockSizeException, InvalidKeyException,
 			BadPaddingException, NoSuchAlgorithmException, NoSuchPaddingException {
 		return decrypt(Base64.getDecoder().decode(data.getBytes()), getPrivateKey(base64PrivateKey));
+	}
+
+	@Override
+	public String getEncriptText(String idKey, String textPlain) {
+		String textEncrypt = "";
+		KeysCipherDocument docChiper = iChipherRepository.findByIdKey(idKey);
+		if (docChiper != null) {
+			try {
+				textEncrypt = getEncriptedData(textPlain, docChiper.getPublicKey());
+			} catch (Exception e) {
+				log.error("Error en el cifrado");
+			}
+		}
+		return textEncrypt;
+	}
+
+	private String getEncriptedData(String textPlain, String publicKey) throws Exception {
+		String textEncrypt = "";
+		try {
+			textEncrypt = Base64.getEncoder().encodeToString(encrypt(textPlain, publicKey));
+		} catch (InvalidKeyException | BadPaddingException | IllegalBlockSizeException | NoSuchPaddingException
+				| NoSuchAlgorithmException e) {
+			throw new Exception(e);
+		}
+
+		return textEncrypt;
+	}
+
+	@Override
+	public String getDecriptText(String idKey, String encryptedText) {
+		String textDecrypt = "";
+		KeysCipherDocument docChiper = iChipherRepository.findByIdKey(idKey);
+
+		if (docChiper != null) {
+			try {
+				textDecrypt = getDecriptedData(encryptedText, docChiper.getPrivateKey());
+			} catch (Exception e) {
+				log.error("Error en el cifrado");
+			}
+		}
+		return textDecrypt;
+	}
+
+	private String getDecriptedData(String textPlain, String privateKey) throws Exception {
+		String textDecrypt = "";
+		try {
+
+			textDecrypt = decrypt(textPlain, privateKey);
+		} catch (InvalidKeyException | BadPaddingException | IllegalBlockSizeException | NoSuchPaddingException
+				| NoSuchAlgorithmException e) {
+			throw new Exception(e);
+		}
+
+		return textDecrypt;
 	}
 
 }

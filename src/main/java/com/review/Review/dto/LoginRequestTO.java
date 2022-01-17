@@ -18,10 +18,9 @@ import lombok.ToString;
  * 
  * Que es Serializable?
  * 
- * Java ha añadido una interesante faceta al lenguaje denominada serialización
- * de objetos que permite convertir cualquier objeto cuya clase implemente el
- * interface Serializable en una secuencia de bytes que pueden ser
- * posteriormente leídos para restaurar el objeto original.
+ * Permite convertir cualquier objeto cuya clase implemente el interface
+ * Serializable en una secuencia de bytes que pueden ser posteriormente leídos
+ * para restaurar el objeto original.
  * 
  * 
  * @author Alan

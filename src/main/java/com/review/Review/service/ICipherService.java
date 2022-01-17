@@ -24,6 +24,14 @@ public interface ICipherService {
 	 * @param cipherText
 	 * @return
 	 */
-	public String getDescipherText(String idKey, String cipherText);
+	public String getEncriptText(String idKey, String textPlain);
+
+	/**
+	 * Metodo para descifrar en base al id del key
+	 * 
+	 * @param cipherText
+	 * @return
+	 */
+	public String getDecriptText(String idKey, String encryptedText);
 
 }
