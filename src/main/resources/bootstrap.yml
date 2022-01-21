@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: Review-App
+
+server:  port: 9090
+  
+aes:
+  users:
+    salt: alex1234
+    key: alexastudillo32digitosclaveaes25
+    iv: 6jAxSS0wsd0xMlQY
+    

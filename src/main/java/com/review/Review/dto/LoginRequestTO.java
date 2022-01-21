@@ -5,8 +5,12 @@ package com.review.Review.dto;
 
 import java.io.Serializable;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+//import javax.validation.constraints.NotNull;
+//import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -48,7 +52,7 @@ public class LoginRequestTO implements Serializable {
 	 * pass de usuario de request
 	 */
 	@NotNull
-	@Size(min = 1, max = 200, message = "El tamaño debe ser minimo de 1 y maximo de 200")
+	@NotBlank(message = "The pass is required.")
 	private String pass;
 
 }

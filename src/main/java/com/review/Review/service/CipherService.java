@@ -80,6 +80,20 @@ public class CipherService implements ICipherService {
 		return keys;
 	}
 
+	@Override
+	public String getEncriptText(String idKey, String textPlain) {
+		String textEncrypt = "";
+		KeysCipherDocument docChiper = iChipherRepository.findByIdKey(idKey);
+		if (docChiper != null) {
+			try {
+				textEncrypt = getEncriptedData(textPlain, docChiper.getPublicKey());
+			} catch (Exception e) {
+				log.error("Error en el cifrado");
+			}
+		}
+		return textEncrypt;
+	}
+
 	/**
 	 * guardado en coleccion
 	 * 
@@ -101,6 +115,21 @@ public class CipherService implements ICipherService {
 		} catch (MongoCommandException e) {
 			log.error("Problema en el guardado de los datos en mongo: {}", e);
 		}
+	}
+
+	@Override
+	public String getDecriptText(String idKey, String encryptedText) {
+		String textDecrypt = "";
+		KeysCipherDocument docChiper = iChipherRepository.findByIdKey(idKey);
+
+		if (docChiper != null) {
+			try {
+				textDecrypt = getDecriptedData(encryptedText, docChiper.getPrivateKey());
+			} catch (Exception e) {
+				log.error("Error en el cifrado");
+			}
+		}
+		return textDecrypt;
 	}
 
 	/**
@@ -160,20 +189,6 @@ public class CipherService implements ICipherService {
 		return decrypt(Base64.getDecoder().decode(data.getBytes()), getPrivateKey(base64PrivateKey));
 	}
 
-	@Override
-	public String getEncriptText(String idKey, String textPlain) {
-		String textEncrypt = "";
-		KeysCipherDocument docChiper = iChipherRepository.findByIdKey(idKey);
-		if (docChiper != null) {
-			try {
-				textEncrypt = getEncriptedData(textPlain, docChiper.getPublicKey());
-			} catch (Exception e) {
-				log.error("Error en el cifrado");
-			}
-		}
-		return textEncrypt;
-	}
-
 	private String getEncriptedData(String textPlain, String publicKey) throws Exception {
 		String textEncrypt = "";
 		try {
@@ -184,21 +199,6 @@ public class CipherService implements ICipherService {
 		}
 
 		return textEncrypt;
-	}
-
-	@Override
-	public String getDecriptText(String idKey, String encryptedText) {
-		String textDecrypt = "";
-		KeysCipherDocument docChiper = iChipherRepository.findByIdKey(idKey);
-
-		if (docChiper != null) {
-			try {
-				textDecrypt = getDecriptedData(encryptedText, docChiper.getPrivateKey());
-			} catch (Exception e) {
-				log.error("Error en el cifrado");
-			}
-		}
-		return textDecrypt;
 	}
 
 	private String getDecriptedData(String textPlain, String privateKey) throws Exception {
