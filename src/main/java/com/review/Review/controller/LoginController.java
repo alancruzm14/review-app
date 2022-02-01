@@ -3,6 +3,8 @@ package com.review.Review.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,13 +37,11 @@ public class LoginController {
 	}
 
 	@PostMapping(path = "/login", produces = "application/json")
-	public String authUser(@Valid @RequestBody LoginRequestTO loginReq) throws ReviewException {
+	public ResponseEntity<Object> authUser(@Valid @RequestBody LoginRequestTO loginReq) throws ReviewException {
 
-		iLoginService.authUser(loginReq);
-
-		return "OK";
+		return new ResponseEntity<>(iLoginService.authUser(loginReq), HttpStatus.OK);
 	}
-	
+
 	@PostMapping(path = "/register", produces = "application/json")
 	public String registerUser(@Valid @RequestBody RegisterRequestTO registerRequestTO) throws ReviewException {
 
@@ -50,4 +50,11 @@ public class LoginController {
 		return "OK";
 	}
 
+	@GetMapping(path = "/validate", produces = "application/json")
+	public String validateTokenTestOnly(@RequestBody String token, String user) throws ReviewException {
+
+		iLoginService.validateTokenJwt(token, user);
+
+		return "OK";
+	}
 }

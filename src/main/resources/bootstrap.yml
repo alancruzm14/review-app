@@ -9,4 +9,7 @@ aes:
     salt: alex1234
     key: alexastudillo32digitosclaveaes25
     iv: 6jAxSS0wsd0xMlQY
+
+jwt:
+  secret: HR487H7123#$"#fvvvvvvvvv/&5#$"c#$c"
     

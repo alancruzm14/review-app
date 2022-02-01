@@ -4,6 +4,7 @@
 package com.review.Review.service;
 
 import com.review.Review.dto.LoginRequestTO;
+import com.review.Review.dto.LoginResponseTO;
 import com.review.Review.dto.RegisterRequestTO;
 import com.review.Review.exceptions.ReviewException;
 
@@ -19,7 +20,7 @@ public interface ILoginService {
 	 * @param loginDto
 	 * @return
 	 */
-	public boolean authUser(LoginRequestTO loginDto) throws ReviewException;
+	public LoginResponseTO authUser(LoginRequestTO loginDto) throws ReviewException;
 
 	/**
 	 * Metodo de registro del usuario
@@ -30,4 +31,12 @@ public interface ILoginService {
 	 */
 	public boolean createUser(RegisterRequestTO registerRequestTO) throws ReviewException;
 
+	/**
+	 * Validador de token
+	 * 
+	 * @param token
+	 * @return
+	 * @throws ReviewException
+	 */
+	public boolean validateTokenJwt(String token, String user) throws ReviewException;
 }
