@@ -13,8 +13,8 @@ import com.review.Review.dto.LoginRequestTO;
 import com.review.Review.dto.LoginResponseTO;
 import com.review.Review.dto.RegisterRequestTO;
 import com.review.Review.exceptions.ReviewException;
-import com.review.Review.model.UserDocument;
-import com.review.Review.repository.IUserRepository;
+import com.review.Review.model.repo1.IUserRepository;
+import com.review.Review.model.repo1.UserDocument;
 
 import lombok.extern.slf4j.Slf4j;
 

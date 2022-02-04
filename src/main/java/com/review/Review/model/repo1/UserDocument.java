@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.review.Review.model;
+package com.review.Review.model.repo1;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -19,7 +19,6 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.ToString;
 
 /**
  * @author Alan
@@ -27,37 +26,42 @@ import lombok.ToString;
  */
 @Getter
 @Setter
-@ToString
+@Document(collection = "Users")
 @JsonIgnoreProperties(ignoreUnknown = true)
-@Document(collection = "KeysDocument")
-public class KeysCipherDocument implements Serializable {
+public class UserDocument implements Serializable {
 
 	/**
-	 * id generado
+	 * serial id default
 	 */
-	private static final long serialVersionUID = 6014296696759121693L;
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Propiedad de id de mongo
 	 */
 	private String id;
-
 	/**
-	 * Propiedad de id para los keys
+	 * usuario del registro del loggeo
 	 */
 	@Indexed(unique = true)
-	private String idKey;
+	private String user;
+	/**
+	 * Contrasena del registro del usuario
+	 */
+	private String pass;
 
 	/**
-	 * Propiedad para obtener la llave publica
+	 * Mail del usuario
 	 */
-	private String publicKey;
+	@Indexed(unique = true)
+	private String mail;
 
 	/**
-	 * Propiedad para obtener la llave privada
+	 * telefono del usuario
 	 */
-	private String privateKey;
-
+	private String telefono;
+	/**
+	 * Fecha de regsitro
+	 */
 	/**
 	 * Propiedad para obtener fecha de registro de la llave
 	 */
@@ -65,6 +69,26 @@ public class KeysCipherDocument implements Serializable {
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
-	private LocalDateTime dateRegister;
+	private LocalDateTime registerDate;
 
+	/**
+	 * 
+	 */
+	public UserDocument() {
+		super();
+	}
+
+	/**
+	 * 
+	 * @param user
+	 * @param pass
+	 * @param registerDate
+	 */
+	public UserDocument(String user, String pass, String mail,  LocalDateTime registerDate) {
+		super();
+		this.user = user;
+		this.pass = pass;
+		this.registerDate = registerDate;
+		this.mail = mail;
+	}
 }

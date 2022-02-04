@@ -28,8 +28,8 @@ import org.springframework.stereotype.Service;
 import com.mongodb.MongoCommandException;
 import com.review.Review.component.AuxComponent;
 import com.review.Review.dto.KeysCipherTO;
-import com.review.Review.model.KeysCipherDocument;
-import com.review.Review.repository.IChipherRepository;
+import com.review.Review.model.repo1.IChipherRepository;
+import com.review.Review.model.repo1.KeysCipherDocument;
 
 import lombok.extern.slf4j.Slf4j;
 

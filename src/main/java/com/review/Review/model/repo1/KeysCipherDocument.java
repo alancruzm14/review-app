@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.review.Review.model;
+package com.review.Review.model.repo1;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -19,6 +19,7 @@ import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 /**
  * @author Alan
@@ -26,42 +27,37 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@Document(collection = "Users")
+@ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class UserDocument implements Serializable {
+@Document(collection = "KeysDocument")
+public class KeysCipherDocument implements Serializable {
 
 	/**
-	 * serial id default
+	 * id generado
 	 */
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 6014296696759121693L;
 
 	/**
 	 * Propiedad de id de mongo
 	 */
 	private String id;
-	/**
-	 * usuario del registro del loggeo
-	 */
-	@Indexed(unique = true)
-	private String user;
-	/**
-	 * Contrasena del registro del usuario
-	 */
-	private String pass;
 
 	/**
-	 * Mail del usuario
+	 * Propiedad de id para los keys
 	 */
 	@Indexed(unique = true)
-	private String mail;
+	private String idKey;
 
 	/**
-	 * telefono del usuario
+	 * Propiedad para obtener la llave publica
 	 */
-	private String telefono;
+	private String publicKey;
+
 	/**
-	 * Fecha de regsitro
+	 * Propiedad para obtener la llave privada
 	 */
+	private String privateKey;
+
 	/**
 	 * Propiedad para obtener fecha de registro de la llave
 	 */
@@ -69,26 +65,6 @@ public class UserDocument implements Serializable {
 	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
 	@JsonDeserialize(using = LocalDateTimeDeserializer.class)
 	@JsonSerialize(using = LocalDateTimeSerializer.class)
-	private LocalDateTime registerDate;
+	private LocalDateTime dateRegister;
 
-	/**
-	 * 
-	 */
-	public UserDocument() {
-		super();
-	}
-
-	/**
-	 * 
-	 * @param user
-	 * @param pass
-	 * @param registerDate
-	 */
-	public UserDocument(String user, String pass, String mail,  LocalDateTime registerDate) {
-		super();
-		this.user = user;
-		this.pass = pass;
-		this.registerDate = registerDate;
-		this.mail = mail;
-	}
 }

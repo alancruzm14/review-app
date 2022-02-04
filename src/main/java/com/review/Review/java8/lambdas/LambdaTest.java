@@ -81,7 +81,6 @@ public class LambdaTest {
 		listTest.add(new LambdaTest("alan"));
 		listTest.add(new LambdaTest("pedro"));
 		listTest.add(new LambdaTest("bruno"));
-		
 
 		List<String> listIds = new ArrayList<String>();
 
@@ -92,27 +91,49 @@ public class LambdaTest {
 
 		System.out.println(":::JAVA 8 :: MAP COLLECT - List String of OBJ::::");
 
-		List<String> listIds2 = listTest.stream().map(LambdaTest::getId).collect(Collectors.toList());
+		List<String> listIds2 = listTest.stream()
+				.map(LambdaTest::getId)
+				.collect(Collectors.toList());
+		
+		
+		
 
 		System.out.println("\n" + listIds2 + "\n");
 
+		
+		
+		
+		
+		
+		
 		System.out.println("******");
 
 		Optional<List<LambdaTest>> listTestOpt = Optional.of(listTest);
 
 		if (listTestOpt.isPresent()) {
-			List<String> listTestOp = listTestOpt.get().stream().filter(a -> a.getId().equals("alan"))
-					.map(LambdaTest::getId).collect(Collectors.toList());
+			List<String> listTestOp = listTestOpt.get().stream()
+					.filter(a -> a.getId().equals("alan"))
+					.map(LambdaTest::getId)
+					.collect(Collectors.toList());
 
 			System.out.println("####### " + listTestOp);
 		}
 
 		System.out.println(":::JAVA 8 :: FLATMAP COLLECT - List String of OBJ::::");
-		List<String> listIds3 = listTest.stream().flatMap(x -> Arrays.asList(x.getId()).stream()).sorted()
+		List<String> listIds3 = listTest.stream()
+				.flatMap(x -> Arrays.asList(x.getId()).stream())
+				.sorted()
 				.collect(Collectors.toList());
 
 		System.out.println("\n" + listIds3 + "\n");
 
+		
+		
+		
+		
+		
+		
+		
 		System.out.println(":::JAVA 8 :: MAPS - Obtain de attribs::::");
 
 		Set<String> keySet = prices.keySet();

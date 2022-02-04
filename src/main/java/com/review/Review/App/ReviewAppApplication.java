@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 
 @SpringBootApplication
 @ComponentScan(basePackages = "com.review.*")
-@EnableMongoRepositories(basePackages = "com.review.*")
+//@EnableMongoRepositories(value = "mx.santander.*")
 public class ReviewAppApplication {
 
 	public static void main(String[] args) {

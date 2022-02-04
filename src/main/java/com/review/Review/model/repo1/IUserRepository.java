@@ -1,12 +1,10 @@
 /**
  * 
  */
-package com.review.Review.repository;
+package com.review.Review.model.repo1;
 
 import org.springframework.data.mongodb.repository.MongoRepository;
 import org.springframework.stereotype.Repository;
-
-import com.review.Review.model.UserDocument;
 
 /**
  * @author macbook

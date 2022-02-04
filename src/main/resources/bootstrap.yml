@@ -1,6 +1,13 @@
 spring:
   application:
     name: Review-App
+  data:
+    mongodb:
+      localdb:
+        uri: mongodb://localhost:27017/reviewDb
+      kuestionsdb:
+        uri: mongodb://admin:admin@localhost:27020/kuestions2?authSource=admin
+        
 
 server:  port: 9090
   
