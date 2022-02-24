@@ -38,7 +38,9 @@ public class LambdaTest {
 	 */
 	public void printNames(List<LambdaTest> listUsers) {
 
-		List<String> listUserId = listUsers.stream().filter(var -> var.getUser().length() > 5).map(LambdaTest::getUser)
+		List<String> listUserId = listUsers.stream()
+				.filter(var -> var.getUser().length() > 5)
+				.map(LambdaTest::getUser)
 				.collect(Collectors.toList());
 
 		System.out.println("Lista de usuarios: " + listUserId);
@@ -46,6 +48,8 @@ public class LambdaTest {
 
 	public static void main(String[] args) {
 
+		Math.pow(7, 2);
+		
 		// Listas
 		List<String> list = new ArrayList<String>();
 		list.add("Rick");
@@ -95,16 +99,9 @@ public class LambdaTest {
 				.map(LambdaTest::getId)
 				.collect(Collectors.toList());
 		
-		
-		
 
 		System.out.println("\n" + listIds2 + "\n");
 
-		
-		
-		
-		
-		
 		
 		System.out.println("******");
 

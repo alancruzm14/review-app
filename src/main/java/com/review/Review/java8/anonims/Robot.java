@@ -53,11 +53,11 @@ public class Robot {
 		return "Robot(" + this.x + ")";
 	}
 
-	public static void main(String[] args) {
-		Robot.DescripcionRobot r = (new Robot(3)).new DescripcionRobot();
-		System.out.println(r.color);
-		System.out.println(r.nombre);
-
-	}
+//	public static void main(String[] args) {
+//		Robot.DescripcionRobot r = (new Robot(3)).new DescripcionRobot();
+//		System.out.println(r.color);
+//		System.out.println(r.nombre);
+//
+//	}
 
 }

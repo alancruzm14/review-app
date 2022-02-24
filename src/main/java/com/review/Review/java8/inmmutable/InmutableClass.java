@@ -3,6 +3,7 @@
  */
 package com.review.Review.java8.inmmutable;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
@@ -46,6 +47,14 @@ class InmutableClass {
 			fac *= i;
 		}
 		System.out.println("resultado " + fac);
+		
+		LocalDate dt = LocalDate.parse("2015-01-01").minusMonths(1).minusDays(1).plusYears(1);
+		System.out.println(dt);
+		
+		String a = "abc";
+		String b = new String("abc");
+		
+		System.out.println("resultado: " + a == b);
 
 	}
 

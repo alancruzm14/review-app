@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.review.Review.dto.LoginRequestTO;
 import com.review.Review.dto.RegisterRequestTO;
+import com.review.Review.dto.ValidateLoginRequestTO;
 import com.review.Review.exceptions.ReviewException;
 import com.review.Review.service.ILoginService;
 
@@ -50,10 +51,11 @@ public class LoginController {
 		return "OK";
 	}
 
-	@GetMapping(path = "/validate", produces = "application/json")
-	public String validateTokenTestOnly(@RequestBody String token, String user) throws ReviewException {
+	@PostMapping(path = "/validate", produces = "application/json")
+	public String validateTokenTestOnly(@RequestBody ValidateLoginRequestTO validateLoginRequestTO)
+			throws ReviewException {
 
-		iLoginService.validateTokenJwt(token, user);
+		iLoginService.validateTokenJwt(validateLoginRequestTO.getToken(), validateLoginRequestTO.getUser());
 
 		return "OK";
 	}

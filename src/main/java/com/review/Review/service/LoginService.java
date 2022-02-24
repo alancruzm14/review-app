@@ -59,10 +59,10 @@ public class LoginService implements ILoginService {
 			if (userDoc.getPass().equals(loginDto.getPass())) {
 				log.info("::: Auth Exitosa :::");
 
-				String token = jWTService.generateToken(loginDto.getUser());
-				log.info(":: TOKEN :: {}", token);
-				reponseTO.setEstatus("ok");
-				reponseTO.setToken(token);
+//				String token = jWTService.generateToken(loginDto.getUser());
+//				log.info(":: TOKEN :: {}", token);
+//				reponseTO.setEstatus("ok");
+//				reponseTO.setToken(token);
 			} else {
 				log.info("Auth Incorrecta");
 			}
@@ -81,21 +81,20 @@ public class LoginService implements ILoginService {
 	 */
 	@Override
 	public boolean validateTokenJwt(String token, String user) throws ReviewException {
-		log.info("Inicia validate: {}", token);
+		log.info("Inicia validate token: {}", token);
+		log.info("Inicia validate user: {}", user);
 
-		boolean status = jWTService.validateToken(token, user);
-
-		log.info("status: {}", status);
-
-		if (status) {
-			log.info("JWT correcto");
-			Date test = jWTService.getExpirationDateFromToken(token);
-
-			log.info("Date token expire {}", test);
-
-		} else {
-			throw new ReviewException("001", "Token No valido", HttpStatus.BAD_REQUEST);
-		}
+//		boolean status = jWTService.validateToken(token, user);
+//
+//		log.info("status: {}", status);
+//
+//		if (status) {
+//			log.info("JWT correcto");
+//			log.info("Fecha expiration: {}",jWTService.getExpirationDateFromToken(token));
+//
+//		} else {
+//			throw new ReviewException("001", "Token No valido", HttpStatus.BAD_REQUEST);
+//		}
 
 		return true;
 	}
